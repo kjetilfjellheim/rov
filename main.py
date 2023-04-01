@@ -1,23 +1,46 @@
-from huskylens import Huskylens, COMMAND_PING, COMMAND_FORGET, COMMAND_ALGORITHM_COLOR_RECOGNITION, COMMAND_LEARN, COMMAND_SCREESNSHOT, COMMAND_SAVE_PICTURE, COMMAND_ARROWS_BY_ID
+import threading
+import logging
+import logging.config
+import yaml
+from sen0386 import Sen0386
 
-HUSKYLENS_SERIALNO = "AB0O5A7Z"
+"""
+Constants
+"""
+LOGGER = "main"
+SEN0386_SERIALNO = "AB0O5A7Z"
 
-huskylens = Huskylens(None, None, HUSKYLENS_SERIALNO)
+"""
+Current sensor values
+"""
+sen038SensorValues = None
 
-response = huskylens.command(command = COMMAND_PING)
-print(response.success)
-response = huskylens.command(command = COMMAND_FORGET)
-print(response.success)
-response = huskylens.command(command = COMMAND_ALGORITHM_COLOR_RECOGNITION)
-print(response.success)
-response = huskylens.command(command = COMM)
-print(response.success)
-response = huskylens.command(command = COMMAND_LEARN, id = 1)
-print(response.success)
-response = huskylens.command(command = COMMAND_SCREESNSHOT)
-print(response.success)
-response = huskylens.command(command = COMMAND_SAVE_PICTURE)
-print(response.success)
-response = huskylens.command(command = COMMAND_ARROWS_BY_ID, id = 1)
-print(response.success)
-print(response.numberOfElements)
+"""
+Setup logging    
+"""
+with open(file = 'logging.yaml', mode = 'r') as stream:
+    config = yaml.load(stream = stream, Loader = yaml.FullLoader)
+    logging.config.dictConfig(config)
+    
+logger = logging.getLogger(LOGGER)
+
+"""
+Setting up modules
+"""
+logger.info("Starting setup")
+sen0386 = Sen0386(serialno = SEN0386_SERIALNO)
+logger.info("Sen0386 setup")
+
+"""
+Thread module setup
+"""
+def sen038Thread():
+    logger.info("Starting sen038Thread")  
+    while True:
+        sen038SensorValues = sen0386.readSensorValues()
+        print(sen038SensorValues)
+
+logger.info("Starting thread setup")        
+sen0386Thread = threading.Thread(target = sen038Thread)
+sen0386Thread.start()
+logger.info("Completed Sen0386 setup")
