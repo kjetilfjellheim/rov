@@ -151,7 +151,7 @@ class Sen0386:
             first = self.findStartIndex(data)
             if (first != None):
                 data = data[first:first+self.DATA_SIZE]
-                loggerHw.info(chr(data))
+                loggerHw.info(data)
                 accPacket = data[self.ACCPACKET_BUFFER_START:self.ACCPACKET_BUFFER_END]
                 angVelPacket = data[self.ANGVELPACKET_BUFFER_START:self.ANGVELPACKET_BUFFER_END]
                 angPacket = data[self.ANGPACKET_BUFFER_START:self.ANGPACKET_BUFFER_END]
