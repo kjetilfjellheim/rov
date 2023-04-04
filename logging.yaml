@@ -49,6 +49,6 @@ loggers:
     propagate: no
   lm298:
     level: INFO
-    handlers: [lm298_file_handler]
+    handlers: [main_file_handler]
     propagate: no
 
