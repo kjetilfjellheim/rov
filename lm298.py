@@ -54,30 +54,30 @@ class MotorControl:
         
     def setPwm(self, pwm, dutyCycle):
         pwm.write(dutyCycle / 100)
-        if pwm == self.pwm1:
+        if pwm == self.m1Pin:
             logger.info("PWM motor 1 dutycycle set {}", dutyCycle)
         else:
             logger.info("PWM motor 2 dutycycle set {}", dutyCycle)
 
     def rotateInPlace(self, speed, direction):
         self.enableMotors()
-        self.setPwm(self.pwm1, speed)
-        self.setPwm(self.pwm2, speed)
+        self.setPwm(self.m1Pin, speed)
+        self.setPwm(self.m2Pin, speed)
 
     def turnDifferential(self, speedLeft, speedRight):
         logger.info("Motors turn differential")
         self.enableMotors()
-        self.setPwm(self.pwm1, speedLeft)
-        self.setPwm(self.pwm2, speedRight)
+        self.setPwm(self.m1Pin, speedLeft)
+        self.setPwm(self.m2Pin, speedRight)
 
     def forward(self, speed, direction):
         logger.info("Motors forward/reverse")
         self.enableMotors()
-        self.setPwm(self.pwm1, speed)
-        self.setPwm(self.pwm2, speed)
+        self.setPwm(self.m1Pin, speed)
+        self.setPwm(self.m2Pin, speed)
 
     def stop(self):
         logger.info("Motors stop")
         self.disableMotors()
-        self.setPwm(self.pwm1, self.STOP_DUTY_CYCLE)
-        self.setPwm(self.pwm2, self.STOP_DUTY_CYCLE)
+        self.setPwm(self.m1Pin, self.STOP_DUTY_CYCLE)
+        self.setPwm(self.m2Pin, self.STOP_DUTY_CYCLE)
