@@ -3,7 +3,7 @@ import logging
 import logging.config
 import yaml
 import time
-from pyfirmata import Arduino, util
+from pyfirmata import Arduino
 from sen0386 import Sen0386
 from lm298 import MotorControl
 
@@ -52,7 +52,7 @@ logger.info("Finished setup gpio")
 """
 Setting up motorcontrol
 """
-motorControl = MotorControl(MOTORCONTROL_E1, MOTORCONTROL_PWM1, MOTORCONTROL_PWM2, MOTORCONTROL_E2)
+motorControl = MotorControl(e1Pin, pwm1Pin, pwm2Pin, e2Pin)
 
 """
 Thread module setup
