@@ -55,9 +55,9 @@ class MotorControl:
     def setPwm(self, pwm, dutyCycle):
         pwm.write(dutyCycle / 100)
         if pwm == self.m1Pin:
-            logger.info("PWM motor 1 dutycycle set {0}", dutyCycle)
+            logger.info("PWM motor 1 dutycycle set {0}".format(dutyCycle))
         else:
-            logger.info("PWM motor 2 dutycycle set {0}", dutyCycle)
+            logger.info("PWM motor 2 dutycycle set {0}".format(dutyCycle))
 
     def rotateInPlace(self, speed, direction):
         self.enableMotors()
