@@ -61,8 +61,8 @@ class MotorControl:
 
     def rotateInPlace(self, speed, direction):
         self.enableMotors()
-        self.setPwm(self.m1Pin, speed)
-        self.setPwm(self.m2Pin, speed)
+        self.setPwm(self.m1Pin, speed * direction)
+        self.setPwm(self.m2Pin, speed * direction)
 
     def turnDifferential(self, speedLeft, speedRight):
         logger.info("Motors turn differential")
@@ -74,7 +74,7 @@ class MotorControl:
         logger.info("Motors forward/reverse")
         self.enableMotors()
         self.setPwm(self.m1Pin, speed)
-        self.setPwm(self.m2Pin, speed)
+        self.setPwm(self.m2Pin, speed * direction)
 
     def stop(self):
         logger.info("Motors stop")
