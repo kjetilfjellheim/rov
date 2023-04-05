@@ -14,20 +14,20 @@ logger = logging.getLogger("lm298")
 Class definitions
 """
 class MotorControl:
-
-
+    """
+    Constants
+    """
     PWM_FREQUENCY = 1000
-
     DIRECTION_LEFT = 1
     DIRECTION_RIGHT = -1
-
     DIRECTION_FORWARD = 1
     DIRECTION_BACK = -1
-
     STOP_DUTY_CYCLE = 50
-
     NEGATE = -1
 
+    """
+    Class variables
+    """
     e1Pin = None
     m1Pin = None
     e2Pin = None

@@ -61,18 +61,18 @@ def sen038Thread():
     logger.info("Starting sen038Thread")  
     while True:
         sen038SensorValues = sen0386.readSensorValues()
-        print(sen038SensorValues)
 
 logger.info("Starting thread setup")        
 sen0386Thread = threading.Thread(target = sen038Thread)
 sen0386Thread.start()
 logger.info("Completed Sen0386 setup")
 
+"""Just demo"""
 time.sleep(1)
 motorControl.disableMotors()
 time.sleep(1)
 motorControl.enableMotors()
 time.sleep(1)
-motorControl.forward(speed = 75, direction = MotorControl.DIRECTION_FORWARD)
+motorControl.forward(speed = 100, direction = MotorControl.DIRECTION_FORWARD)
 time.sleep(1)
 motorControl.stop()
