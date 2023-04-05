@@ -3,7 +3,7 @@ import logging
 import logging.config
 import yaml
 import time
-import RPi.GPIO as gpio
+from pyfirmata import Arduino, util
 from sen0386 import Sen0386
 from lm298 import MotorControl
 
@@ -12,10 +12,11 @@ Constants
 """
 LOGGER = "main"
 SEN0386_SERIALNO = "AB0O5A7Z"
-MOTORCONTROL_E1 = 6
-MOTORCONTROL_PWM1 = 18
-MOTORCONTROL_PWM2 = 19
-MOTORCONTROL_E2 = 20
+MOTORCONTROL_E1 = "d:6:o"
+MOTORCONTROL_PWM1 = "d:5:p"
+MOTORCONTROL_PWM2 = "d:3:p"
+MOTORCONTROL_E2 = "d:4:o"
+ARDUINO_DEVICE = "/dev/ttyACM0"
 """
 Current sensor values
 """
@@ -41,12 +42,11 @@ logger.info("Sen0386 setup")
 Setting up gpio
 """
 logger.info("Starting setup gpio")
-gpio.setwarnings(False)		
-gpio.setmode(gpio.BOARD)
-gpio.setup(MOTORCONTROL_E1, gpio.OUT)
-gpio.setup(MOTORCONTROL_PWM1, gpio.OUT)
-gpio.setup(MOTORCONTROL_PWM2, gpio.OUT)
-gpio.setup(MOTORCONTROL_E2, gpio.OUT)
+board = Arduino(ARDUINO_DEVICE)
+e1Pin = board.get_pin(MOTORCONTROL_E1)
+pwm1Pin = board.get_pin(MOTORCONTROL_PWM1)
+pwm2Pin = board.get_pin(MOTORCONTROL_PWM2)
+e2Pin = board.get_pin(MOTORCONTROL_E2)
 logger.info("Finished setup gpio")
 
 """

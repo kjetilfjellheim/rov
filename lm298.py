@@ -1,5 +1,5 @@
 import logging
-import RPi.GPIO as gpio
+import pyfirmata
 
 """
 Constants
@@ -15,6 +15,7 @@ Class definitions
 """
 class MotorControl:
 
+
     PWM_FREQUENCY = 1000
 
     DIRECTION_LEFT = 1
@@ -29,10 +30,8 @@ class MotorControl:
 
     e1Pin = None
     m1Pin = None
-    pwm1 = None
     e2Pin = None
     m2Pin = None
-    pwm2 = None
 
     def __init__(self, e1Pin, m1Pin, m2Pin, e2Pin):
         logger.info("Starting initalizing LM298")
@@ -40,23 +39,21 @@ class MotorControl:
         self.m1Pin = m1Pin
         self.m2Pin = m2Pin
         self.e2Pin = e2Pin
-        self.pwm1 = gpio.PWM(m1Pin, self.PWM_FREQUENCY)
-        self.pwm2 = gpio.PWM(m2Pin, self.PWM_FREQUENCY)
         self.stop()
         logger.info("Finished initalizing LM298")
 
     def enableMotors(self):
-        gpio.output(self.e1Pin, gpio.HIGH)
-        gpio.output(self.e2Pin, gpio.HIGH)
+        self.e1Pin.write(1)
+        self.e2Pin.write(1)
         logger.info("Enabled motors LM298")
 
     def disableMotors(self):
-        gpio.output(self.e1Pin, gpio.LOW)
-        gpio.output(self.e2Pin, gpio.LOW)
+        self.e1Pin.write(0)
+        self.e2Pin.write(0)
         logger.info("Disabled motors LM298")
         
     def setPwm(self, pwm, dutyCycle):
-        pwm.ChangeDutyCycle(dutyCycle)
+        pwm.write(dutyCycle / 100)
         if pwm == self.pwm1:
             logger.info("PWM motor 1 dutycycle set {}", dutyCycle)
         else:
