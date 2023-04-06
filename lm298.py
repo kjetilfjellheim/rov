@@ -60,19 +60,27 @@ class MotorControl:
     """
     Setting pwm value on motor. The value is a fraction between 0-1.
     """        
-    def setPwm(self, pwm, dutyCycle):
-        writeVal = dutyCycle / 100.0
+    def setPwm(self, pwm, value):
+        writeVal = value / 100.0
         pwm.write(writeVal)
         if pwm == self.m1Pin:
-            logger.info("PWM motor 1 written value {0} dutycycle set {1}".format(writeVal, dutyCycle))
-        else:
-            logger.info("PWM motor 2 written value {0} dutycycle set {1}".format(writeVal, dutyCycle))
+            logger.info("PWM motor 1 written value {0} dutycycle set {1}".format(writeVal, value))
+        elif pwm == self.m2Pin:
+            logger.info("PWM motor 2 written value {0} dutycycle set {1}".format(writeVal, value))
+        if pwm == self.m1Pin and value == 0:
+            self.e1Pin.write(self.OFF)
+        elif pwm == self.m1Pin and value > 0:
+            self.e1Pin.write(self.ON)     
+        elif pwm == self.m2Pin and value == 0:
+            self.e2Pin.write(self.OFF)
+        elif pwm == self.m2Pin and value > 0:
+            self.e2Pin.write(self.ON)                 
 
     """
     Rotate in place by setting one motor forward and he other back at the same speed.
     """  
     def rotateInPlace(self, speed, direction):
-        self.enableMotors()
+        logger.info("Motors rotate in place")
         self.setPwm(self.m1Pin, 100 - (50 - (speed * direction / 2)))
         self.setPwm(self.m2Pin, 100 - (50 - (speed * direction / 2)))
 
@@ -81,7 +89,6 @@ class MotorControl:
     """  
     def turnDifferential(self, speedLeft, speedRight, direction):
         logger.info("Motors turn differential")
-        self.enableMotors()
         self.setPwm(self.m1Pin, 100 - (50 + (speedLeft * direction / 2)))
         self.setPwm(self.m2Pin, 100 - (50 - (speedRight * direction / 2)))
 
@@ -90,7 +97,6 @@ class MotorControl:
     """  
     def forward(self, speed, direction):
         logger.info("Motors forward/reverse")
-        self.enableMotors()
         self.setPwm(self.m1Pin, 100 - (50 + (speed * direction / 2)))
         self.setPwm(self.m2Pin, 100 - (50 - (speed * direction / 2)))
     
@@ -99,6 +105,5 @@ class MotorControl:
     """  
     def stop(self):
         logger.info("Motors stop")
-        self.disableMotors()
         self.setPwm(self.m1Pin, self.STOP_DUTY_CYCLE)
         self.setPwm(self.m2Pin, self.STOP_DUTY_CYCLE)
