@@ -63,13 +63,13 @@ class MotorControl:
     def rotateInPlace(self, speed, direction):
         self.enableMotors()
         self.setPwm(self.m1Pin, 100 - (50 + (speed/2)))
-        self.setPwm(self.m2Pin, 50 + (speed/2))
+        self.setPwm(self.m2Pin, 100 - (50 + (speed/2)))
 
     def turnDifferential(self, speedLeft, speedRight):
         logger.info("Motors turn differential")
         self.enableMotors()
         self.setPwm(self.m1Pin, 100 - (50 + (speedLeft/2)))
-        self.setPwm(self.m2Pin, 50 + (speedRight/2))
+        self.setPwm(self.m2Pin, 100 - (50 + (speedRight/2)))
 
     def forward(self, speed, direction):
         logger.info("Motors forward/reverse")
