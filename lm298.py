@@ -1,5 +1,4 @@
 import logging
-import pyfirmata
 
 """
 Constants
@@ -17,8 +16,8 @@ class MotorControl:
     """
     Constants
     """
-    DIRECTION_LEFT = 1
-    DIRECTION_RIGHT = -1
+    DIRECTION_LEFT = -1
+    DIRECTION_RIGHT = 1
     DIRECTION_FORWARD = 1
     DIRECTION_BACK = -1
     STOP_DUTY_CYCLE = 50
@@ -62,20 +61,20 @@ class MotorControl:
 
     def rotateInPlace(self, speed, direction):
         self.enableMotors()
-        self.setPwm(self.m1Pin, 100 - (50 + (speed/2)))
-        self.setPwm(self.m2Pin, 100 - (50 + (speed/2)))
+        self.setPwm(self.m1Pin, 100 - (50 + (speed * direction / 2)))
+        self.setPwm(self.m2Pin, 100 - (50 + (speed * direction / 2)))
 
-    def turnDifferential(self, speedLeft, speedRight):
+    def turnDifferential(self, speedLeft, speedRight, direction):
         logger.info("Motors turn differential")
         self.enableMotors()
-        self.setPwm(self.m1Pin, 100 - (50 + (speedLeft/2)))
-        self.setPwm(self.m2Pin, 100 - (50 + (speedRight/2)))
+        self.setPwm(self.m1Pin, 100 - (50 + (speedLeft * direction / 2)))
+        self.setPwm(self.m2Pin, 100 - (50 - (speedRight * direction / 2)))
 
     def forward(self, speed, direction):
         logger.info("Motors forward/reverse")
         self.enableMotors()
-        self.setPwm(self.m1Pin, 100 - (50 + (speed/2)))
-        self.setPwm(self.m2Pin, 50 + (speed/2))
+        self.setPwm(self.m1Pin, 100 - (50 + (speed * direction / 2)))
+        self.setPwm(self.m2Pin, 100 - (50 - (speed * direction / 2)))
 
     def stop(self):
         logger.info("Motors stop")
