@@ -11,10 +11,10 @@ Constants
 """
 LOGGER = "main"                 #Logger name
 SEN0386_SERIALNO = "AB0O5A7Z"   #Serial no of th ftdi interface device
-MOTORCONTROL_E1 = "d:6:o"       #Digital pin 6 output
-MOTORCONTROL_PWM1 = "d:5:p"     #Digital pin 5 pwm output
+MOTORCONTROL_PWM1 = "d:6:p"     #Digital pin 6 pwm output
+MOTORCONTROL_M1 = "d:5:o"       #Digital pin 5 output
+MOTORCONTROL_M2 = "d:4:o"       #Digital pin 4 output
 MOTORCONTROL_PWM2 = "d:3:p"     #Digital pin 3 pwm output
-MOTORCONTROL_E2 = "d:4:o"       #Digital pin 4 output
 ARDUINO_DEVICE = "/dev/ttyACM0" #Arduino device on Lattepanda
 """
 Current sensor values
@@ -42,16 +42,16 @@ Setting up gpio
 """
 logger.info("Starting setup gpio")
 board = Arduino(ARDUINO_DEVICE)
-e1Pin = board.get_pin(MOTORCONTROL_E1)
 pwm1Pin = board.get_pin(MOTORCONTROL_PWM1)
+m1Pin = board.get_pin(MOTORCONTROL_M1)
+m2Pin = board.get_pin(MOTORCONTROL_M2)
 pwm2Pin = board.get_pin(MOTORCONTROL_PWM2)
-e2Pin = board.get_pin(MOTORCONTROL_E2)
 logger.info("Finished setup gpio")
 
 """
 Setting up motorcontrol
 """
-motorControl = MotorControl(e1Pin, pwm1Pin, pwm2Pin, e2Pin)
+motorControl = MotorControl(pwm1Pin, m1Pin, m2Pin, pwm2Pin)
 
 """
 Thread module setup
