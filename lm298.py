@@ -61,11 +61,12 @@ class MotorControl:
     Setting pwm value on motor. The value is a fraction between 0-1.
     """        
     def setPwm(self, pwm, dutyCycle):
-        pwm.write(dutyCycle / 100)
+        writeVal = dutyCycle / 100.0
+        pwm.write(writeVal)
         if pwm == self.m1Pin:
-            logger.info("PWM motor 1 dutycycle set {0}".format(dutyCycle))
+            logger.info("PWM motor 1 written value {0} dutycycle set {1}".format(writeVal, dutyCycle))
         else:
-            logger.info("PWM motor 2 dutycycle set {0}".format(dutyCycle))
+            logger.info("PWM motor 2 written value {0} dutycycle set {1}".format(writeVal, dutyCycle))
 
     """
     Rotate in place by setting one motor forward and he other back at the same speed.
