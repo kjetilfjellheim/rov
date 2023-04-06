@@ -17,13 +17,14 @@ class MotorControl:
     """
     Constants
     """
-    PWM_FREQUENCY = 1000
     DIRECTION_LEFT = 1
     DIRECTION_RIGHT = -1
     DIRECTION_FORWARD = 1
     DIRECTION_BACK = -1
     STOP_DUTY_CYCLE = 50
     NEGATE = -1
+    ON = 1
+    OFF = 0
 
     """
     Class variables
@@ -43,13 +44,13 @@ class MotorControl:
         logger.info("Finished initalizing LM298")
 
     def enableMotors(self):
-        self.e1Pin.write(1)
-        self.e2Pin.write(1)
+        self.e1Pin.write(self.ON)
+        self.e2Pin.write(self.ON)
         logger.info("Enabled motors LM298")
 
     def disableMotors(self):
-        self.e1Pin.write(0)
-        self.e2Pin.write(0)
+        self.e1Pin.write(self.OFF)
+        self.e2Pin.write(self.OFF)
         logger.info("Disabled motors LM298")
         
     def setPwm(self, pwm, dutyCycle):
@@ -61,20 +62,20 @@ class MotorControl:
 
     def rotateInPlace(self, speed, direction):
         self.enableMotors()
-        self.setPwm(self.m1Pin, speed * direction)
-        self.setPwm(self.m2Pin, speed * direction)
+        self.setPwm(self.m1Pin, 100 - (50 + (speed/2)))
+        self.setPwm(self.m2Pin, 50 + (speed/2))
 
     def turnDifferential(self, speedLeft, speedRight):
         logger.info("Motors turn differential")
         self.enableMotors()
-        self.setPwm(self.m1Pin, speedLeft)
-        self.setPwm(self.m2Pin, speedRight * self.NEGATE)
+        self.setPwm(self.m1Pin, 100 - (50 + (speedLeft/2)))
+        self.setPwm(self.m2Pin, 50 + (speedRight/2))
 
     def forward(self, speed, direction):
         logger.info("Motors forward/reverse")
         self.enableMotors()
-        self.setPwm(self.m1Pin, speed * direction)
-        self.setPwm(self.m2Pin, speed * self.NEGATE * direction)
+        self.setPwm(self.m1Pin, 100 - (50 + (speed/2)))
+        self.setPwm(self.m2Pin, 50 + (speed/2))
 
     def stop(self):
         logger.info("Motors stop")
