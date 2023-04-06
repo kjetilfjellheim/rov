@@ -45,14 +45,14 @@ class MotorControl:
         mPin.write(self.HIGH)
         if mPin == self.m1Pin:
             logger.info("Motor 1 written value HIGH")
-        elif mPin == self.m1Pin:
+        elif mPin == self.m2Pin:
             logger.info("Motor 2 written value HIGH")
 
     def setReverse(self, mPin):
         mPin.write(self.LOW)
         if mPin == self.m1Pin:
             logger.info("Motor 1 written value LOW")
-        elif mPin == self.m1Pin:
+        elif mPin == self.m2Pin:
             logger.info("Motor 2 written value LOW")        
 
     """
