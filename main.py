@@ -2,7 +2,6 @@ import threading
 import logging
 import logging.config
 import yaml
-import time
 from pyfirmata import Arduino
 from sen0386 import Sen0386
 from lm298 import MotorControl
@@ -10,17 +9,17 @@ from lm298 import MotorControl
 """
 Constants
 """
-LOGGER = "main"
-SEN0386_SERIALNO = "AB0O5A7Z"
-MOTORCONTROL_E1 = "d:6:o"
-MOTORCONTROL_PWM1 = "d:5:p"
-MOTORCONTROL_PWM2 = "d:3:p"
-MOTORCONTROL_E2 = "d:4:o"
-ARDUINO_DEVICE = "/dev/ttyACM0"
+LOGGER = "main"                 #Logger name
+SEN0386_SERIALNO = "AB0O5A7Z"   #Serial no of th ftdi interface device
+MOTORCONTROL_E1 = "d:6:o"       #Digital pin 6 output
+MOTORCONTROL_PWM1 = "d:5:p"     #Digital pin 5 pwm output
+MOTORCONTROL_PWM2 = "d:3:p"     #Digital pin 3 pwm output
+MOTORCONTROL_E2 = "d:4:o"       #Digital pin 4 output
+ARDUINO_DEVICE = "/dev/ttyACM0" #Arduino device on Lattepanda
 """
 Current sensor values
 """
-sen038SensorValues = None
+sen038SensorValues = None       #Latest sen0386 sensor values read
 
 """
 Setup logging    
@@ -68,9 +67,8 @@ sen0386Thread.start()
 logger.info("Completed Sen0386 setup")
 
 """Just demo"""
-time.sleep(1)
-motorControl.disableMotors()
-time.sleep(1)
-motorControl.enableMotors()
-time.sleep(1)
-motorControl.forward(speed = 100, direction = MotorControl.DIRECTION_FORWARD)
+#motorControl.disableMotors()
+#motorControl.enableMotors()
+#motorControl.forward(speed = 100, direction = MotorControl.DIRECTION_FORWARD)
+#motorControl.rotateInPlace(speed = 100, direction = MotorControl.DIRECTION_LEFT)
+#motorControl.stop()

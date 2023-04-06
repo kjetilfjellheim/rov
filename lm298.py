@@ -16,22 +16,21 @@ class MotorControl:
     """
     Constants
     """
-    DIRECTION_LEFT = -1
-    DIRECTION_RIGHT = 1
+    DIRECTION_LEFT = 1
+    DIRECTION_RIGHT = -1
     DIRECTION_FORWARD = 1
     DIRECTION_BACK = -1
     STOP_DUTY_CYCLE = 50
-    NEGATE = -1
     ON = 1
     OFF = 0
 
     """
     Class variables
     """
-    e1Pin = None
-    m1Pin = None
-    e2Pin = None
-    m2Pin = None
+    e1Pin = None    #Enable pin for motor 1
+    m1Pin = None    #Pwm pin for motor 1
+    e2Pin = None    #Enable pin for motor 2
+    m2Pin = None    #Pwm pin for motor 2
 
     def __init__(self, e1Pin, m1Pin, m2Pin, e2Pin):
         logger.info("Starting initalizing LM298")
@@ -42,16 +41,25 @@ class MotorControl:
         self.stop()
         logger.info("Finished initalizing LM298")
 
+    """
+    Enable motors by enabling pins by setting them to HIGH.
+    """
     def enableMotors(self):
         self.e1Pin.write(self.ON)
         self.e2Pin.write(self.ON)
         logger.info("Enabled motors LM298")
 
+    """
+    Disable motors by disabling pins by setting them to LOW.
+    """
     def disableMotors(self):
         self.e1Pin.write(self.OFF)
         self.e2Pin.write(self.OFF)
         logger.info("Disabled motors LM298")
-        
+
+    """
+    Setting pwm value on motor. The value is a fraction between 0-1.
+    """        
     def setPwm(self, pwm, dutyCycle):
         pwm.write(dutyCycle / 100)
         if pwm == self.m1Pin:
@@ -59,23 +67,35 @@ class MotorControl:
         else:
             logger.info("PWM motor 2 dutycycle set {0}".format(dutyCycle))
 
+    """
+    Rotate in place by setting one motor forward and he other back at the same speed.
+    """  
     def rotateInPlace(self, speed, direction):
         self.enableMotors()
-        self.setPwm(self.m1Pin, 100 - (50 + (speed * direction / 2)))
-        self.setPwm(self.m2Pin, 100 - (50 + (speed * direction / 2)))
+        self.setPwm(self.m1Pin, 100 - (50 - (speed * direction / 2)))
+        self.setPwm(self.m2Pin, 100 - (50 - (speed * direction / 2)))
 
+    """
+    Turn by setting left and right motors at different speed.
+    """  
     def turnDifferential(self, speedLeft, speedRight, direction):
         logger.info("Motors turn differential")
         self.enableMotors()
         self.setPwm(self.m1Pin, 100 - (50 + (speedLeft * direction / 2)))
         self.setPwm(self.m2Pin, 100 - (50 - (speedRight * direction / 2)))
 
+    """
+    Move forward or back
+    """  
     def forward(self, speed, direction):
         logger.info("Motors forward/reverse")
         self.enableMotors()
         self.setPwm(self.m1Pin, 100 - (50 + (speed * direction / 2)))
         self.setPwm(self.m2Pin, 100 - (50 - (speed * direction / 2)))
-
+    
+    """
+    Stop both motors by disbaling enable pins and pwm to stop.
+    """  
     def stop(self):
         logger.info("Motors stop")
         self.disableMotors()

@@ -6,8 +6,8 @@ import logging
 """
 Logger setup
 """
-logger = logging.getLogger("sen0386")
-loggerHw = logging.getLogger("sen0386_hw")
+logger = logging.getLogger("sen0386")       #Calculated sensor logger
+loggerHw = logging.getLogger("sen0386_hw")  #Actual hardware values
 
 """
 Class definitions
