@@ -67,14 +67,12 @@ sen0386Thread.start()
 logger.info("Completed Sen0386 setup")
 
 """Just demo"""
-#motorControl.disableMotors()															--OK
-#motorControl.enableMotors()															--OK
-#motorControl.forward(speed = 100, direction = MotorControl.DIRECTION_FORWARD)			--OK
-#motorControl.forward(speed = 100, direction = MotorControl.DIRECTION_REVERSE)			--OK
-#motorControl.rotateInPlace(speed = 100, direction = MotorControl.DIRECTION_LEFT)		--FAILED No motors running
-#motorControl.rotateInPlace(speed = 100, direction = MotorControl.DIRECTION_RIGHT)		--OK
-#motorControl.turnDifferential(100,0, MotorControl.DIRECTION_FORWARD)					--OK
-#motorControl.turnDifferential(0,100, MotorControl.DIRECTION_FORWARD)					--FAILED Left engine running slow and right not at all
-#motorControl.turnDifferential(100,0, MotorControl.DIRECTION_BACK)						--FAILED No motors running
-#motorControl.turnDifferential(0,100, MotorControl.DIRECTION_BACK)						--OK
-#motorControl.stop()																	--OK
+#motorControl.forward(speed = 100, direction = MotorControl.DIRECTION_FORWARD)			--
+#motorControl.forward(speed = 100, direction = MotorControl.DIRECTION_BACK)			    --
+#motorControl.rotateInPlace(speed = 100, direction = MotorControl.DIRECTION_LEFT)		--
+#motorControl.rotateInPlace(speed = 100, direction = MotorControl.DIRECTION_RIGHT)		--
+#motorControl.turnDifferential(100,0, MotorControl.DIRECTION_FORWARD)					--
+#motorControl.turnDifferential(0,100, MotorControl.DIRECTION_FORWARD)					--
+#motorControl.turnDifferential(100,0, MotorControl.DIRECTION_BACK)						--
+#motorControl.turnDifferential(0,100, MotorControl.DIRECTION_BACK)						--
+#motorControl.stop()																	--
