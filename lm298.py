@@ -63,7 +63,7 @@ class MotorControl:
         pwm.write(writeVal)
         if pwm == self.pwm1Pin:
             logger.info("PWM motor 1 written value {0} dutycycle set {1}".format(writeVal, value))
-        elif pwm == self.pwm1Pin:
+        elif pwm == self.pwm2Pin:
             logger.info("PWM motor 2 written value {0} dutycycle set {1}".format(writeVal, value))               
 
     """
