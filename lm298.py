@@ -29,9 +29,9 @@ class MotorControl:
     """
     pwm1Pin = None    #Pwm pin for motor 1
     m1Pin = None      #Motor pin for motor 1
-    m2Pin = None      #Motor pin for motor 2
     pwm2Pin = None    #Pwm pin for motor 2
-    
+    m2Pin = None      #Motor pin for motor 2
+
     def __init__(self, pwm1Pin, m1Pin, m2Pin, pwm2Pin):
         logger.info("Starting initalizing LM298")
         self.pwm1Pin = pwm1Pin
@@ -77,8 +77,8 @@ class MotorControl:
             self.setForward(self.m1Pin)
             self.setReverse(self.m2Pin)        
         logger.info("Motors rotate in place")
-        self.setPwm(self.pwm1Pin, 50 + (speed / 2))
-        self.setPwm(self.pwm2Pin, 50 + (speed / 2))
+        self.setPwm(self.pwm1Pin, 100 - speed)
+        self.setPwm(self.pwm2Pin, speed)
 
     """
     Turn by setting left and right motors at different speed.
@@ -91,8 +91,8 @@ class MotorControl:
         else:
             self.setReverse(self.m1Pin)
             self.setReverse(self.m2Pin)
-        self.setPwm(self.pwm1Pin, 50 + (speedLeft / 2))
-        self.setPwm(self.pwm2Pin, 50 + (speedRight / 2))
+        self.setPwm(self.pwm1Pin, 100 - speedLeft)
+        self.setPwm(self.pwm2Pin, speedRight)
 
     """
     Move forward or back
@@ -101,12 +101,12 @@ class MotorControl:
         logger.info("Motors forward/reverse")
         if self.DIRECTION_FORWARD == direction:
             self.setForward(self.m1Pin)
-            self.setForward(self.m2Pin)
+            self.setForward(self.m2Pin)            
         else:
             self.setReverse(self.m1Pin)
             self.setReverse(self.m2Pin)
-        self.setPwm(self.pwm1Pin, 50 + (speed / 2))
-        self.setPwm(self.pwm2Pin, 50 + (speed / 2))
+        self.setPwm(self.pwm1Pin, 100 - speed)            
+        self.setPwm(self.pwm2Pin, speed)
     
     """
     Stop both motors by disbaling enable pins and pwm to stop.

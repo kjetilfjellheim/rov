@@ -67,12 +67,12 @@ sen0386Thread.start()
 logger.info("Completed Sen0386 setup")
 
 """Just demo"""
-#motorControl.forward(speed = 100, direction = MotorControl.DIRECTION_FORWARD)			--
-#motorControl.forward(speed = 100, direction = MotorControl.DIRECTION_BACK)			    --
-#motorControl.rotateInPlace(speed = 100, direction = MotorControl.DIRECTION_LEFT)		--
-#motorControl.rotateInPlace(speed = 100, direction = MotorControl.DIRECTION_RIGHT)		--
-#motorControl.turnDifferential(100,0, MotorControl.DIRECTION_FORWARD)					--
-#motorControl.turnDifferential(0,100, MotorControl.DIRECTION_FORWARD)					--
-#motorControl.turnDifferential(100,0, MotorControl.DIRECTION_BACK)						--
-#motorControl.turnDifferential(0,100, MotorControl.DIRECTION_BACK)						--
-#motorControl.stop()																	--
+#motorControl.forward(speed = 100, direction = MotorControl.DIRECTION_FORWARD)			--No movement
+#motorControl.forward(speed = 100, direction = MotorControl.DIRECTION_BACK)			    --OK
+#motorControl.rotateInPlace(speed = 100, direction = MotorControl.DIRECTION_LEFT)		--OK
+#motorControl.rotateInPlace(speed = 100, direction = MotorControl.DIRECTION_RIGHT)		--No movement
+#motorControl.turnDifferential(100,0, MotorControl.DIRECTION_FORWARD)					--No movement
+#motorControl.turnDifferential(0,100, MotorControl.DIRECTION_FORWARD)					--No movement
+#motorControl.turnDifferential(100,0, MotorControl.DIRECTION_BACK)						--OK
+#motorControl.turnDifferential(0,100, MotorControl.DIRECTION_BACK)						--OK, except left stil slightly move
+#motorControl.stop()																	--OK
